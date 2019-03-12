@@ -16,15 +16,6 @@ Ext.onReady(function(){
 			name: 'id', 
 			type: 'string' 
 		}, 
-		// { 
-		// 	name: 'firstName', 
-		// 	type: 'string', 
-		// }, 
-		// { 
-		// 	// name: 'name_lastName',
-		// 	name:'name', 
-			
-		// }, 
 		{ 
 			name: 'phone', 
 			type: 'string' 
@@ -44,12 +35,10 @@ Ext.onReady(function(){
     }] 
 	}); 
 
-
 	var store = Ext.create('Ext.data.Store', { 
 		model: 'User', 
 		autoLoad: true, 
 		pageSize: 10, 
-		// currentPage: 4, 
 		proxy: { 
 			type: 'ajax', 
 			url: 'info.json', 
@@ -82,9 +71,8 @@ Ext.onReady(function(){
 		{ 
 			header: 'Имя', 
 			renderer: function(value, meta, record, colIndex, rowIndex, store, view) {
-        return record.name().first().get( 'firstName' );
-        // return record.getData().name.lastName;
-	    }
+		        return record.name().first().get( 'firstName' );
+		    }
 		}, 
 		{ 
 			header: 'Фамилия',
