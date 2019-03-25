@@ -1,126 +1,26 @@
-Ext.onReady(() => {
-  Ext.define('Name', {
-    extend: 'Ext.data.Model',
-    idProperty: 'id',
-    fields: [{
-      name: 'firstName',
-    },
-    {
-      name: 'lastName',
-    }],
-  });
+/*
+ * This file is generated and updated by Sencha Cmd. You can edit this file as
+ * needed for your application, but these edits will have to be merged by
+ * Sencha Cmd when upgrading.
+ */
+Ext.application({
+    name: 'Grid',
 
-  Ext.define('User', {
-    extend: 'Ext.data.Model',
-    idProperty: 'id',
-    fields: [{
-      name: 'id',
-      type: 'string',
-    },
-    {
-      name: 'phone',
-      type: 'string',
-    },
-    {
-      name: 'about',
-      type: 'string',
-    },
-    {
-      name: 'eyeColor',
-      type: 'string',
-    }],
-    associations: [{
-      type: 'hasMany',
-      model: 'Name',
-      name: 'name',
-    }],
-  });
+    extend: 'Grid.Application',
 
-  const store = Ext.create('Ext.data.Store', {
-    model: 'User',
-    autoLoad: true,
-    pageSize: 10,
-    proxy: {
-      type: 'ajax',
-      url: 'info.json',
-      reader: {
-        type: 'json',
-        root: 'users',
-      },
-    },
+    requires: [
+        'Grid.view.main.Main'
+    ],
 
-  });
-  store.load(() => {
-    store.each((record) => {
-      console.log(record.get('phone'));
-    });
-  });
+    // The name of the initial view to create. With the classic toolkit this class
+    // will gain a "viewport" plugin if it does not extend Ext.Viewport. With the
+    // modern toolkit, the main view will be added to the Viewport.
+    //
+    mainView: 'Grid.view.main.Main'
 
-  Ext.create('Ext.grid.Panel', {
-    title: 'Пользователи',
-    height: 500,
-    width: 550,
-    margin: 5,
-    store,
-    dockedItems: [{
-      xtype: 'pagingtoolbar',
-      store,
-      dock: 'bottom',
-      displayInfo: true,
-      beforePageText: 'Страница',
-      afterPageText: 'из {0}',
-      displayMsg: 'Пользователи {0} - {1} из {2}',
-    }],
-    columns: [{
-      xtype: 'rownumberer',
-    },
-    {
-      header: 'Имя',
-      renderer(value, meta, record, colIndex, rowIndex, store, view) {
-        return record.name().first().get('firstName');
-      },
-      sorter: {
-        sorterFn(a, b) {
-          const name1 = a.name().first().get('firstName');
-
-
-          const name2 = b.name().first().get('firstName');
-          return name1 > name2 ? 1 : (name1 === name2) ? 0 : -1;
-        },
-        // direction: 'DESC'
-      },
-    },
-    {
-      header: 'Фамилия',
-      id: 'id',
-      flex: 1,
-      hideable: true,
-      renderer(value, meta, record, colIndex, rowIndex, store, view) {
-        return record.name().first().get('lastName');
-      },
-      sorter: {
-        sorterFn(a, b) {
-          const name1 = a.name().first().get('lastName');
-
-
-          const name2 = b.name().first().get('lastName');
-          return name1 > name2 ? 1 : (name1 === name2) ? 0 : -1;
-        },
-        // direction: 'DESC'
-      },
-    },
-    {
-      header: 'Номер телефона',
-      dataIndex: 'phone',
-    },
-    {
-      header: 'Описание',
-      dataIndex: 'about',
-    },
-    {
-      header: 'Цвет глаз',
-      dataIndex: 'eyeColor',
-    }],
-    renderTo: Ext.getBody(),
-  });
+    //-------------------------------------------------------------------------
+    // Most customizations should be made to Grid.Application. If you need to
+    // customize this file, doing so below this section reduces the likelihood
+    // of merge conflicts when upgrading to new versions of Sencha Cmd.
+    //-------------------------------------------------------------------------
 });
